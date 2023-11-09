@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:my_app/models/task.dart';
 
 import '../state/task_state.dart';
 
@@ -12,8 +14,8 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<List<String>>(
-      valueListenable: taskState.tasks,
+    return ValueListenableBuilder(
+      valueListenable: taskState.box.listenable(),
       builder: (context, value, _) {
         return value.isEmpty
             ? const Center(
@@ -34,11 +36,11 @@ class TasksList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          value[index],
+                          (value.getAt(index) as Task).title,
                         ),
                         IconButton(
                           onPressed: () {
-                            taskState.removeTask(value[index]);
+                            taskState.removeTask(value.getAt(index));
                           },
                           icon: const Icon(
                             Icons.delete,

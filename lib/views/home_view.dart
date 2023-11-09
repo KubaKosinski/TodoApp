@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:my_app/models/task.dart';
 
 import '../state/task_state.dart';
 import '../widgets/tasks_list.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   HomeView({super.key});
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   final TaskState taskState = TaskState();
+
+  TextEditingController taskController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController taskController = TextEditingController();
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -20,8 +28,13 @@ class HomeView extends StatelessWidget {
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                taskState.addTask(taskController.text);
+                final task = Task(taskController.text);
+                taskState.addTask(
+                  task,
+                  taskController.text,
+                );
                 taskController.clear();
+                print(taskState.box.values);
               },
               child: const Text(
                 'Add',

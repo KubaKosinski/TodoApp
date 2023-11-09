@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:my_app/models/task.dart';
 
 class TaskState extends ChangeNotifier {
-  final ValueNotifier<List<String>> tasks = ValueNotifier([]);
+  final box = Hive.box('myBox');
 
-  void addTask(String task) {
-    if (task.isNotEmpty) {
-      tasks.value.add(task);
-      tasks.notifyListeners();
-      print(tasks);
+  void addTask(Task task, String controller) {
+    if (controller.isNotEmpty) {
+      box.add(task);
+      notifyListeners();
     }
   }
 
-  void removeTask(String task) {
-    tasks.value.remove(task);
-    tasks.notifyListeners();
+  void removeTask(Task task) {
+    box.delete(task);
   }
 }
