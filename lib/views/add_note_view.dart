@@ -10,24 +10,27 @@ class AddNoteView extends StatefulWidget {
 }
 
 class _AddNoteViewState extends State<AddNoteView> {
-  final NoteState taskState = NoteState();
+  final NoteState noteState = NoteState();
 
-  late final TextEditingController taskController = TextEditingController();
+  late final TextEditingController noteController = TextEditingController();
 
-  Note? task;
+  Note? note;
 
   @override
   void initState() {
-    taskController.addListener(() {
-      task = Note(taskController.text);
+    noteController.addListener(() {
+      note = Note(
+        title: noteController.text,
+        dateTime: DateTime.now(),
+      );
     });
     super.initState();
   }
 
   @override
   void dispose() {
-    if (taskController.text.isNotEmpty) {
-      taskState.addNote(task!);
+    if (noteController.text.isNotEmpty) {
+      noteState.addNote(note!);
     }
     super.dispose();
   }
@@ -43,7 +46,7 @@ class _AddNoteViewState extends State<AddNoteView> {
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: TextField(
-            controller: taskController,
+            controller: noteController,
             maxLines: 15,
             autofocus: true,
             decoration: const InputDecoration(

@@ -6,16 +6,22 @@ import 'package:my_app/widgets/tasks_list.dart';
 class NotesView extends StatelessWidget {
   const NotesView({
     super.key,
-    required this.taskState,
+    required this.noteState,
   });
 
-  final NoteState taskState;
+  final NoteState noteState;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TasksList(
-        taskState: taskState,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 24,
+        ),
+        child: TasksList(
+          noteState: noteState,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -25,7 +31,13 @@ class NotesView extends StatelessWidget {
             ),
           );
         },
-        child: const Text("Add"),
+        backgroundColor: const Color.fromARGB(255, 183, 150, 58),
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 35,
+        ),
       ),
     );
   }

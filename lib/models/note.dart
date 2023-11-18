@@ -6,6 +6,8 @@ part 'note.g.dart';
 class Note {
   @HiveField(0)
   String title;
+  @HiveField(1)
+  DateTime dateTime;
 
-  Note(this.title);
+  Note({required this.title, required this.dateTime});
 }
