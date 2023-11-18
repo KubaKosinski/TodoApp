@@ -1,11 +1,11 @@
 import 'package:hive/hive.dart';
 
-part 'task.g.dart';
+part 'note.g.dart';
 
 @HiveType(typeId: 0)
-class Task {
+class Note {
   @HiveField(0)
   String title;
 
-  Task(this.title);
+  Note(this.title);
 }
