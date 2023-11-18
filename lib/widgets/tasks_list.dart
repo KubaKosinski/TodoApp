@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:my_app/models/note.dart';
@@ -37,8 +35,14 @@ class TasksList extends StatelessWidget {
                     child: ListTile(
                       title: Text(
                         note.title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      subtitle: Text(note.dateTime.formatDate()),
+                      subtitle: Text(
+                        note.dateTime.formatDate(),
+                      ),
                       tileColor: const Color.fromARGB(255, 29, 29, 29),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
