@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/res/colors/app_color.dart';
 import 'package:my_app/state/note_state.dart';
 import 'package:my_app/views/add_note_view.dart';
 import 'package:my_app/widgets/tasks_list.dart';
@@ -31,7 +32,7 @@ class NotesView extends StatelessWidget {
             ),
           );
         },
-        backgroundColor: const Color.fromARGB(255, 183, 150, 58),
+        backgroundColor: AppColor.primaryColor,
         shape: const CircleBorder(),
         child: const Icon(
           Icons.add,
