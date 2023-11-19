@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:my_app/models/note.dart';
 import 'package:my_app/res/colors/app_color.dart';
+import 'package:my_app/res/strings/app_strings.dart';
 import 'package:my_app/utils/extensions/date_time_extension.dart';
 
 import '../state/note_state.dart';
@@ -20,7 +21,7 @@ class TasksList extends StatelessWidget {
       builder: (context, value, _) {
         return value.isEmpty
             ? const Center(
-                child: Text("No notes"),
+                child: Text(AppStrings.noNotes),
               )
             : ListView.separated(
                 separatorBuilder: (_, __) => const SizedBox(height: 16),

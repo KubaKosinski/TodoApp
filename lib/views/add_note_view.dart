@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/models/note.dart';
+import 'package:my_app/res/strings/app_strings.dart';
 import '../state/note_state.dart';
 
 class AddNoteView extends StatefulWidget {
@@ -40,7 +41,7 @@ class _AddNoteViewState extends State<AddNoteView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Notes"),
+          title: const Text(AppStrings.notes),
           backgroundColor: Colors.transparent,
         ),
         body: Padding(
