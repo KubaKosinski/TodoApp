@@ -7,6 +7,6 @@ import 'my_notes.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NoteAdapter());
-  await Hive.openBox('myBox');
+  await Hive.openBox('notes');
   runApp(const MyNotes());
 }

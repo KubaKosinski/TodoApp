@@ -3,22 +3,39 @@ import 'package:my_app/models/note.dart';
 import 'package:my_app/res/strings/app_strings.dart';
 import '../state/note_state.dart';
 
-class AddNoteView extends StatefulWidget {
-  const AddNoteView({super.key});
+class AddOrUpdateNoteView extends StatefulWidget {
+  const AddOrUpdateNoteView({
+    super.key,
+    this.note,
+    this.index,
+    required this.noteState,
+  });
+
+  final Note? note;
+  final int? index;
+  final NoteState noteState;
 
   @override
-  State<AddNoteView> createState() => _AddNoteViewState();
+  State<AddOrUpdateNoteView> createState() => _AddOrUpdateNoteViewState();
 }
 
-class _AddNoteViewState extends State<AddNoteView> {
-  final NoteState noteState = NoteState();
-
-  late final TextEditingController noteController = TextEditingController();
-
+class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
+  late final TextEditingController noteController;
   Note? note;
+
+  void saveNote() async {
+    if (noteController.text.isNotEmpty) {
+      if (widget.note == null) {
+        await widget.noteState.addNote(note!);
+      } else {
+        await widget.noteState.updateNote(widget.index!, note!);
+      }
+    }
+  }
 
   @override
   void initState() {
+    noteController = TextEditingController(text: widget.note?.title);
     noteController.addListener(() {
       note = Note(
         title: noteController.text,
@@ -30,9 +47,8 @@ class _AddNoteViewState extends State<AddNoteView> {
 
   @override
   void dispose() {
-    if (noteController.text.isNotEmpty) {
-      noteState.addNote(note!);
-    }
+    saveNote();
+    noteController.dispose();
     super.dispose();
   }
 

@@ -2,13 +2,17 @@ import 'package:hive/hive.dart';
 import 'package:my_app/models/note.dart';
 
 class NoteState {
-  final box = Hive.box('myBox');
+  final box = Hive.box('notes');
 
-  void addNote(Note note) {
-    box.add(note);
+  Future<void> addNote(Note note) async {
+    await box.add(note);
   }
 
-  void removeNote(int index) {
-    box.deleteAt(index);
+  Future<void> removeNote(int index) async {
+    await box.deleteAt(index);
+  }
+
+  Future<void> updateNote(int index, Note note) async {
+    await box.putAt(index, note);
   }
 }

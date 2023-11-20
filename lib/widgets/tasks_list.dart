@@ -4,6 +4,7 @@ import 'package:my_app/models/note.dart';
 import 'package:my_app/res/colors/app_color.dart';
 import 'package:my_app/res/strings/app_strings.dart';
 import 'package:my_app/utils/extensions/date_time_extension.dart';
+import 'package:my_app/views/add_or_update_note_view.dart';
 
 import '../state/note_state.dart';
 
@@ -31,10 +32,18 @@ class TasksList extends StatelessWidget {
                   final note = value.getAt(index) as Note;
                   return Dismissible(
                     key: ValueKey(note),
-                    onDismissed: (direction) {
-                      noteState.removeNote(index);
-                    },
+                    onDismissed: (direction) async =>
+                        await noteState.removeNote(index),
                     child: ListTile(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AddOrUpdateNoteView(
+                            noteState: noteState,
+                            note: note,
+                            index: index,
+                          ),
+                        ),
+                      ),
                       title: Text(
                         note.title,
                         style: const TextStyle(

@@ -9,5 +9,8 @@ class Note {
   @HiveField(1)
   DateTime dateTime;
 
-  Note({required this.title, required this.dateTime});
+  Note({
+    required this.title,
+    required this.dateTime,
+  });
 }

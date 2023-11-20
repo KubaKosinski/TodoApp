@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/res/colors/app_color.dart';
 import 'package:my_app/state/note_state.dart';
-import 'package:my_app/views/add_note_view.dart';
+import 'package:my_app/views/add_or_update_note_view.dart';
 import 'package:my_app/widgets/tasks_list.dart';
 
 class NotesView extends StatelessWidget {
@@ -28,7 +28,7 @@ class NotesView extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const AddNoteView(),
+              builder: (context) => AddOrUpdateNoteView(noteState: noteState),
             ),
           );
         },

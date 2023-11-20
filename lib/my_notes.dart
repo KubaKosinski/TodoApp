@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/res/colors/app_color.dart';
 
 import 'res/strings/app_strings.dart';
 import 'state/note_state.dart';
@@ -14,7 +15,7 @@ class MyNotes extends StatelessWidget {
       title: AppStrings.appName,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 183, 150, 58),
+          seedColor: AppColor.primaryColor,
           background: Colors.black,
           brightness: Brightness.dark,
         ),
