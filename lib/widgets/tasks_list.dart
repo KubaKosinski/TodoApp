@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:intl/intl.dart';
 import 'package:my_app/models/note.dart';
 import 'package:my_app/res/colors/app_color.dart';
 import 'package:my_app/res/strings/app_strings.dart';
@@ -52,7 +53,7 @@ class TasksList extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        note.dateTime.formatDate(),
+                        DateFormat.yMMMMd().add_jm().format(note.dateTime),
                       ),
                       tileColor: AppColor.contrastColor,
                       shape: RoundedRectangleBorder(

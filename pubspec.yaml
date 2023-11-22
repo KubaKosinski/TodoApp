@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  intl: ^0.18.1
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

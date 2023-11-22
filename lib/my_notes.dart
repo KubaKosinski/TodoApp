@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_app/res/colors/app_color.dart';
 
 import 'res/strings/app_strings.dart';
@@ -12,6 +13,15 @@ class MyNotes extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const <Locale>[
+        Locale('pl'),
+        Locale('en'),
+      ],
       title: AppStrings.appName,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
