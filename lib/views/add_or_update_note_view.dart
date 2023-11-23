@@ -89,17 +89,18 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
               const SizedBox(
                 height: 25,
               ),
-              TextField(
-                controller: descriptionController,
-                maxLines: 15,
-                autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: "Description",
-                  border: InputBorder.none,
-                ),
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: TextField(
+                  controller: descriptionController,
+                  maxLines: 15,
+                  decoration: const InputDecoration(
+                    hintText: "Description",
+                    border: InputBorder.none,
+                  ),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

@@ -52,7 +52,10 @@ class TasksList extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        DateFormat.yMMMMd().add_jm().format(note.dateTime),
+                        DateFormat.yMMMMd()
+                            .add_jm()
+                            .format(note.dateTime)
+                            .toString(),
                       ),
                       tileColor: AppColor.contrastColor,
                       shape: RoundedRectangleBorder(
