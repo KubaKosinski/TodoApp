@@ -20,11 +20,13 @@ class AddOrUpdateNoteView extends StatefulWidget {
 }
 
 class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
-  late final TextEditingController noteController;
+  late final TextEditingController titleController;
+  late final TextEditingController descriptionController;
+
   Note? note;
 
   void saveNote() async {
-    if (noteController.text.isNotEmpty) {
+    if (titleController.text.isNotEmpty) {
       if (widget.note == null) {
         await widget.noteState.addNote(note!);
       } else {
@@ -35,10 +37,20 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
 
   @override
   void initState() {
-    noteController = TextEditingController(text: widget.note?.title);
-    noteController.addListener(() {
+    titleController = TextEditingController(text: widget.note?.title);
+    descriptionController =
+        TextEditingController(text: widget.note?.description);
+    titleController.addListener(() {
       note = Note(
-        title: noteController.text,
+        title: titleController.text,
+        description: descriptionController.text,
+        dateTime: DateTime.now(),
+      );
+    });
+    descriptionController.addListener(() {
+      note = Note(
+        title: titleController.text,
+        description: descriptionController.text,
         dateTime: DateTime.now(),
       );
     });
@@ -48,7 +60,8 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
   @override
   void dispose() {
     saveNote();
-    noteController.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
@@ -62,17 +75,38 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
-          child: TextField(
-            controller: noteController,
-            maxLines: 15,
-            autofocus: true,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-            ),
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
+          child: Column(
+            children: [
+              TextField(
+                controller: titleController,
+                maxLines: 1,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  hintText: "Title",
+                  border: InputBorder.none,
+                ),
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              TextField(
+                controller: descriptionController,
+                maxLines: 15,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  hintText: "Description",
+                  border: InputBorder.none,
+                ),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
       ),

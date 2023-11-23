@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:my_app/models/note.dart';
 import 'package:my_app/res/colors/app_color.dart';
 import 'package:my_app/res/strings/app_strings.dart';
-import 'package:my_app/utils/extensions/date_time_extension.dart';
 import 'package:my_app/views/add_or_update_note_view.dart';
 
 import '../state/note_state.dart';
