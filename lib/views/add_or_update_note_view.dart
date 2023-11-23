@@ -37,23 +37,19 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
 
   @override
   void initState() {
+    void updateNote() {
+      note = Note(
+        title: titleController.text,
+        description: descriptionController.text,
+        dateTime: DateTime.now(),
+      );
+    }
+
     titleController = TextEditingController(text: widget.note?.title);
     descriptionController =
         TextEditingController(text: widget.note?.description);
-    titleController.addListener(() {
-      note = Note(
-        title: titleController.text,
-        description: descriptionController.text,
-        dateTime: DateTime.now(),
-      );
-    });
-    descriptionController.addListener(() {
-      note = Note(
-        title: titleController.text,
-        description: descriptionController.text,
-        dateTime: DateTime.now(),
-      );
-    });
+    titleController.addListener(updateNote);
+    descriptionController.addListener(updateNote);
     super.initState();
   }
 
