@@ -63,7 +63,7 @@ class NoteTile extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              DateFormat.yMMMMd().add_jm().format(note.dateTime).toString(),
+              DateFormat.yMMMMd().add_jm().format(note.dateTime),
               style: const TextStyle(
                 fontSize: 13,
                 color: Colors.grey,

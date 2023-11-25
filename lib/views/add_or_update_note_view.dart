@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_app/models/note.dart';
 import 'package:my_app/res/strings/app_strings.dart';
 import '../state/note_state.dart';
@@ -26,6 +27,13 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
   Note? note;
 
   void saveNote() async {
+    if (widget.note != null) {
+      if (titleController.text == widget.note!.title &&
+          descriptionController.text == widget.note!.description) {
+        return;
+      }
+    }
+
     if (titleController.text.isNotEmpty) {
       if (widget.note == null) {
         await widget.noteState.addNote(note!);
@@ -84,20 +92,28 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
                 vertical: 8,
               ),
               child: widget.note != null
-                  ? Checkbox(
-                      value: widget.note!.showDescription,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          final xd = widget.note!.showDescription = value!;
-                          widget.noteState.updateNote(
-                            widget.index!,
-                            widget.note!.copyWith(
-                              showDescription: xd,
-                            ),
-                          );
-                        });
-                        print(widget.note);
-                      },
+                  ? Row(
+                      children: [
+                        Icon(widget.note!.showDescription
+                            ? Icons.speaker_notes
+                            : Icons.speaker_notes_off),
+                        const SizedBox(width: 8),
+                        Checkbox(
+                          value: widget.note!.showDescription,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              final xd = widget.note!.showDescription = value!;
+                              widget.noteState.updateNote(
+                                widget.index!,
+                                widget.note!.copyWith(
+                                  showDescription: xd,
+                                ),
+                              );
+                            });
+                            print(widget.note);
+                          },
+                        ),
+                      ],
                     )
                   : null,
             )
@@ -137,7 +153,11 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
                   ),
                 ),
               ),
-              Text('Last edited ${widget.note?.dateTime}')
+              widget.note != null
+                  ? Text(
+                      'Last edit ${DateFormat.yMMMMd().add_jm().format(widget.note!.dateTime)}',
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
