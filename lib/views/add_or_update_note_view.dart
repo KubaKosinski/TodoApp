@@ -30,26 +30,34 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
       if (widget.note == null) {
         await widget.noteState.addNote(note!);
       } else {
-        await widget.noteState.updateNote(widget.index!, note!);
+        await widget.noteState.updateNote(
+          widget.index!,
+          widget.note!.copyWith(
+            title: titleController.text,
+            description: descriptionController.text,
+            dateTime: DateTime.now(),
+          ),
+        );
       }
     }
   }
 
+  void updateNote() {
+    note = Note(
+      title: titleController.text,
+      description: descriptionController.text,
+      dateTime: DateTime.now(),
+    );
+  }
+
   @override
   void initState() {
-    void updateNote() {
-      note = Note(
-        title: titleController.text,
-        description: descriptionController.text,
-        dateTime: DateTime.now(),
-      );
-    }
-
     titleController = TextEditingController(text: widget.note?.title);
     descriptionController =
         TextEditingController(text: widget.note?.description);
     titleController.addListener(updateNote);
     descriptionController.addListener(updateNote);
+    print(widget.note);
     super.initState();
   }
 
@@ -58,6 +66,7 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
     saveNote();
     titleController.dispose();
     descriptionController.dispose();
+    print(widget.note);
     super.dispose();
   }
 
@@ -68,6 +77,31 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
         appBar: AppBar(
           title: const Text(AppStrings.notes),
           backgroundColor: Colors.transparent,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
+              child: widget.note != null
+                  ? Checkbox(
+                      value: widget.note!.showDescription,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          final xd = widget.note!.showDescription = value!;
+                          widget.noteState.updateNote(
+                            widget.index!,
+                            widget.note!.copyWith(
+                              showDescription: xd,
+                            ),
+                          );
+                        });
+                        print(widget.note);
+                      },
+                    )
+                  : null,
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),

@@ -22,14 +22,10 @@ class NotesListView extends StatelessWidget {
       itemCount: value.length,
       itemBuilder: (context, index) {
         final note = value.getAt(index) as Note;
-        return Dismissible(
-          key: ValueKey(note),
-          onDismissed: (_) async => await noteState.removeNote(index),
-          child: NoteTile(
-            note: note,
-            noteState: noteState,
-            index: index,
-          ),
+        return NoteTile(
+          note: note,
+          noteState: noteState,
+          index: index,
         );
       },
     );

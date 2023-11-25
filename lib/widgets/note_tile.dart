@@ -20,29 +20,57 @@ class NoteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => AddOrUpdateNoteView(
-            noteState: noteState,
-            note: note,
-            index: index,
+    return Dismissible(
+      key: ValueKey(note),
+      onDismissed: (_) async => await noteState.removeNote(index),
+      child: ListTile(
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => AddOrUpdateNoteView(
+              noteState: noteState,
+              note: note,
+              index: index,
+            ),
           ),
         ),
-      ),
-      title: Text(
-        note.title,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              note.title,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 8,
+              ),
+              child: note.description != null &&
+                      note.showDescription == true &&
+                      note.description!.isNotEmpty
+                  ? Text(
+                      note.description!,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : Container(),
+            ),
+          ],
         ),
-      ),
-      subtitle: Text(
-        DateFormat.yMMMMd().add_jm().format(note.dateTime).toString(),
-      ),
-      tileColor: AppColor.contrastColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+        subtitle: Text(
+          DateFormat.yMMMMd().add_jm().format(note.dateTime).toString(),
+          style: TextStyle(
+            fontSize: 13,
+          ),
+        ),
+        tileColor: AppColor.contrastColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
       ),
     );
   }

@@ -15,4 +15,9 @@ class NoteState {
   Future<void> updateNote(int index, Note note) async {
     await box.putAt(index, note);
   }
+
+  Future<void> showDescription(int index, bool value, Note note) async {
+    final newNote = note.copyWith(showDescription: value);
+    await box.putAt(index, newNote);
+  }
 }

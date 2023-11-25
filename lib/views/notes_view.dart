@@ -17,7 +17,7 @@ class NotesView extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 16,
+          horizontal: 30,
           vertical: 24,
         ),
         child: TasksList(
