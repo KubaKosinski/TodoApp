@@ -137,6 +137,7 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
                   ),
                 ),
               ),
+              Text('Last edited ${widget.note?.dateTime}')
             ],
           ),
         ),

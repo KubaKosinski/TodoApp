@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../models/note.dart';
 import '../res/colors/app_color.dart';
 import '../state/note_state.dart';
@@ -20,26 +19,29 @@ class NoteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(note),
-      onDismissed: (_) async => await noteState.removeNote(index),
-      child: ListTile(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => AddOrUpdateNoteView(
-              noteState: noteState,
-              note: note,
-              index: index,
-            ),
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => AddOrUpdateNoteView(
+            noteState: noteState,
+            note: note,
+            index: index,
           ),
         ),
-        title: Column(
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColor.contrastColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               note.title,
               style: const TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -53,23 +55,21 @@ class NoteTile extends StatelessWidget {
                   ? Text(
                       note.description!,
                       style: const TextStyle(
-                        fontSize: 17,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     )
-                  : Container(),
+                  : null,
+            ),
+            const SizedBox(height: 5),
+            Text(
+              DateFormat.yMMMMd().add_jm().format(note.dateTime).toString(),
+              style: const TextStyle(
+                fontSize: 13,
+                color: Colors.grey,
+              ),
             ),
           ],
-        ),
-        subtitle: Text(
-          DateFormat.yMMMMd().add_jm().format(note.dateTime).toString(),
-          style: TextStyle(
-            fontSize: 13,
-          ),
-        ),
-        tileColor: AppColor.contrastColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
         ),
       ),
     );
