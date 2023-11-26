@@ -94,10 +94,12 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
               child: widget.note != null
                   ? Row(
                       children: [
-                        Icon(widget.note!.showDescription
-                            ? Icons.speaker_notes
-                            : Icons.speaker_notes_off),
-                        const SizedBox(width: 8),
+                        Icon(
+                          widget.note!.showDescription
+                              ? Icons.speaker_notes
+                              : Icons.speaker_notes_off,
+                        ),
+                        const SizedBox(width: 3),
                         Checkbox(
                           value: widget.note!.showDescription,
                           onChanged: (bool? value) {
