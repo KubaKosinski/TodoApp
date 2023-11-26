@@ -155,9 +155,13 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
                   ),
                 ),
               ),
+              const Spacer(),
               widget.note != null
                   ? Text(
                       'Last edit ${DateFormat.yMMMMd().add_jm().format(widget.note!.dateTime)}',
+                      style: const TextStyle(
+                        fontSize: 11,
+                      ),
                     )
                   : const SizedBox(),
             ],
