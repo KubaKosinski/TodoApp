@@ -9,12 +9,10 @@ class NoteTile extends StatelessWidget {
   const NoteTile({
     super.key,
     required this.note,
-    required this.noteState,
     required this.index,
   });
 
   final Note note;
-  final NoteState noteState;
   final int index;
 
   @override
@@ -23,7 +21,6 @@ class NoteTile extends StatelessWidget {
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => AddOrUpdateNoteView(
-            noteState: noteState,
             note: note,
             index: index,
           ),

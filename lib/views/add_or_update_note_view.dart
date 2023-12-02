@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_app/models/note.dart';
 import 'package:my_app/res/strings/app_strings.dart';
+import 'package:provider/provider.dart';
 import '../state/note_state.dart';
 
 class AddOrUpdateNoteView extends StatefulWidget {
@@ -9,12 +10,10 @@ class AddOrUpdateNoteView extends StatefulWidget {
     super.key,
     this.note,
     this.index,
-    required this.noteState,
   });
 
   final Note? note;
   final int? index;
-  final NoteState noteState;
 
   @override
   State<AddOrUpdateNoteView> createState() => _AddOrUpdateNoteViewState();
@@ -36,16 +35,16 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
 
     if (titleController.text.isNotEmpty) {
       if (widget.note == null) {
-        await widget.noteState.addNote(note!);
+        await context.watch<NoteState>().addNote(note: note!);
       } else {
-        await widget.noteState.updateNote(
-          widget.index!,
-          widget.note!.copyWith(
-            title: titleController.text,
-            description: descriptionController.text,
-            dateTime: DateTime.now(),
-          ),
-        );
+        await context.watch<NoteState>().updateNote(
+              index: widget.index!,
+              note: widget.note!.copyWith(
+                title: titleController.text,
+                description: descriptionController.text,
+                dateTime: DateTime.now(),
+              ),
+            );
       }
     }
   }
@@ -65,7 +64,6 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
         TextEditingController(text: widget.note?.description);
     titleController.addListener(updateNote);
     descriptionController.addListener(updateNote);
-    print(widget.note);
     super.initState();
   }
 
@@ -74,7 +72,6 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
     saveNote();
     titleController.dispose();
     descriptionController.dispose();
-    print(widget.note);
     super.dispose();
   }
 
@@ -103,15 +100,18 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
                         Checkbox(
                           value: widget.note!.showDescription,
                           onChanged: (bool? value) {
-                            setState(() {
-                              final xd = widget.note!.showDescription = value!;
-                              widget.noteState.updateNote(
-                                widget.index!,
-                                widget.note!.copyWith(
-                                  showDescription: xd,
-                                ),
-                              );
-                            });
+                            setState(
+                              () {
+                                final xd =
+                                    widget.note!.showDescription = value!;
+                                context.read<NoteState>().updateNote(
+                                      index: widget.index!,
+                                      note: widget.note!.copyWith(
+                                        showDescription: xd,
+                                      ),
+                                    );
+                              },
+                            );
                             print(widget.note);
                           },
                         ),

@@ -18,7 +18,7 @@ class AddNoteFloatingButton extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => AddOrUpdateNoteView(noteState: noteState),
+            builder: (context) => const AddOrUpdateNoteView(),
           ),
         );
       },

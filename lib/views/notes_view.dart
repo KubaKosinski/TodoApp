@@ -20,9 +20,7 @@ class NotesView extends StatelessWidget {
           horizontal: 30,
           vertical: 24,
         ),
-        child: TasksList(
-          noteState: noteState,
-        ),
+        child: TasksList(),
       ),
       floatingActionButton: AddNoteFloatingButton(noteState: noteState),
     );
