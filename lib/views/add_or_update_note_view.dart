@@ -23,9 +23,14 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
   late final TextEditingController titleController;
   late final TextEditingController descriptionController;
 
-  Note? note;
+  void updateNote() async {
+    final note = Note(
+      title: titleController.text,
+      description: descriptionController.text,
+      dateTime: DateTime.now(),
+    );
 
-  void saveNote() async {
+    // validation only
     if (widget.note != null) {
       if (titleController.text == widget.note!.title &&
           descriptionController.text == widget.note!.description) {
@@ -35,26 +40,14 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
 
     if (titleController.text.isNotEmpty) {
       if (widget.note == null) {
-        await context.watch<NoteState>().addNote(note: note!);
+        await context.read<NoteState>().addNote(note: note);
       } else {
-        await context.watch<NoteState>().updateNote(
+        await context.read<NoteState>().updateNote(
               index: widget.index!,
-              note: widget.note!.copyWith(
-                title: titleController.text,
-                description: descriptionController.text,
-                dateTime: DateTime.now(),
-              ),
+              note: note,
             );
       }
     }
-  }
-
-  void updateNote() {
-    note = Note(
-      title: titleController.text,
-      description: descriptionController.text,
-      dateTime: DateTime.now(),
-    );
   }
 
   @override
@@ -69,7 +62,6 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
 
   @override
   void dispose() {
-    saveNote();
     titleController.dispose();
     descriptionController.dispose();
     super.dispose();
