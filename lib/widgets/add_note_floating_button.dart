@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/note.dart';
 import '../res/colors/app_color.dart';
-import '../state/note_state.dart';
+import '../view_model/note_state.dart';
 import '../views/add_or_update_note_view.dart';
 
 class AddNoteFloatingButton extends StatelessWidget {
@@ -18,7 +18,7 @@ class AddNoteFloatingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () async {
-        await context.read<NoteState>().updateNote(
+        await context.read<NoteViewModel>().updateNote(
               note: note,
               id: note.id,
             );

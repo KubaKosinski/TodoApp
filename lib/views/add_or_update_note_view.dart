@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:my_app/models/note.dart';
 import 'package:my_app/res/strings/app_strings.dart';
 import 'package:provider/provider.dart';
-import '../state/note_state.dart';
+import '../view_model/note_state.dart';
 
 class AddOrUpdateNoteView extends StatefulWidget {
   const AddOrUpdateNoteView({
@@ -35,7 +35,7 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
     }
 
     if (titleController.text.isNotEmpty) {
-      await context.read<NoteState>().updateNote(
+      await context.read<NoteViewModel>().updateNote(
             id: widget.note.id,
             note: note,
           );
@@ -87,7 +87,7 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
                         setState(
                           () {
                             final xd = widget.note.showDescription = value!;
-                            context.read<NoteState>().updateNote(
+                            context.read<NoteViewModel>().updateNote(
                                   id: widget.note.id,
                                   note: widget.note.copyWith(
                                     title: titleController.text,

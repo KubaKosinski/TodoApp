@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import '../models/note.dart';
 import '../repository/note_repository.dart';
 
-class NoteState extends ChangeNotifier {
+class NoteViewModel extends ChangeNotifier {
   final NoteRepository _noteRepository;
-  NoteState({
+  NoteViewModel({
     required NoteRepository noteRepository,
   }) : _noteRepository = noteRepository;
 

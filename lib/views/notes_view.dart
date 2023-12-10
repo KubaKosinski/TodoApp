@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/state/note_state.dart';
+import 'package:my_app/view_model/note_state.dart';
 import 'package:my_app/widgets/tasks_list.dart';
 import 'package:provider/provider.dart';
 import '../models/note.dart';
@@ -12,7 +12,7 @@ class NotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<NoteState>(
+    return Consumer<NoteViewModel>(
       builder: (context, value, child) {
         print(value.getNotes);
         final note = Note.empty();
