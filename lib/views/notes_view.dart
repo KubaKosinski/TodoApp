@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/state/note_state.dart';
 import 'package:my_app/widgets/tasks_list.dart';
+import 'package:provider/provider.dart';
 
+import '../models/note.dart';
 import '../widgets/add_note_floating_button.dart';
 
 class NotesView extends StatelessWidget {
@@ -14,15 +16,23 @@ class NotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 30,
-          vertical: 24,
-        ),
-        child: TasksList(),
-      ),
-      floatingActionButton: AddNoteFloatingButton(noteState: noteState),
+    return Consumer<NoteState>(
+      builder: (context, value, child) {
+        print(value.getNotes());
+        final note = Note.empty();
+        return Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30,
+              vertical: 24,
+            ),
+            child: TasksList(
+              notes: value.getNotes(),
+            ),
+          ),
+          floatingActionButton: AddNoteFloatingButton(note: note),
+        );
+      },
     );
   }
 }

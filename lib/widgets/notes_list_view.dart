@@ -23,9 +23,9 @@ class NotesListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final note = notes[index];
         return Dismissible(
-          key: ValueKey(note),
+          key: ValueKey(note.id),
           onDismissed: (_) async =>
-              await context.read<NoteState>().removeNote(index: index),
+              await context.read<NoteState>().removeNote(id: note.id),
           child: NoteTile(
             note: note,
             index: index,

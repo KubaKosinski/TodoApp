@@ -19,17 +19,17 @@ class NoteState extends ChangeNotifier {
 
   Future<void> updateNote({
     required Note note,
-    required int index,
+    required String id,
   }) async {
     await _noteRepository.updateNote(
       entity: note,
-      index: index,
+      id: id,
     );
     notifyListeners();
   }
 
-  Future<void> removeNote({required int index}) async {
-    await _noteRepository.removeNote(index: index);
+  Future<void> removeNote({required String id}) async {
+    await _noteRepository.removeNote(id: id);
     notifyListeners();
   }
 }

@@ -11,13 +11,13 @@ class NoteRepositoryImpl implements NoteRepository<Note> {
   }
 
   @override
-  Future<void> removeNote({required int index}) async {
-    await _box.deleteAt(index);
+  Future<void> removeNote({required String id}) async {
+    await _box.delete(id);
   }
 
   @override
-  Future<void> updateNote({required Note entity, required int index}) async {
-    await _box.putAt(index, entity);
+  Future<void> updateNote({required Note entity, required String id}) async {
+    await _box.put(id, entity);
   }
 
   @override

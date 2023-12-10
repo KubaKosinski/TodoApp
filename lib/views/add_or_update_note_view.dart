@@ -8,11 +8,11 @@ import '../state/note_state.dart';
 class AddOrUpdateNoteView extends StatefulWidget {
   const AddOrUpdateNoteView({
     super.key,
-    this.note,
+    required this.note,
     this.index,
   });
 
-  final Note? note;
+  final Note note;
   final int? index;
 
   @override
@@ -24,39 +24,35 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
   late final TextEditingController descriptionController;
 
   void updateNote() async {
-    final note = Note(
+    final note = widget.note.copyWith(
       title: titleController.text,
       description: descriptionController.text,
       dateTime: DateTime.now(),
     );
 
     // validation only
-    if (widget.note != null) {
-      if (titleController.text == widget.note!.title &&
-          descriptionController.text == widget.note!.description) {
-        return;
-      }
-    }
+
+    // if (titleController.text == widget.note.title &&
+    //     descriptionController.text == widget.note.description) {
+    //   return;
+    // }
 
     if (titleController.text.isNotEmpty) {
-      if (widget.note == null) {
-        await context.read<NoteState>().addNote(note: note);
-      } else {
-        await context.read<NoteState>().updateNote(
-              index: widget.index!,
-              note: note,
-            );
-      }
+      await context.read<NoteState>().updateNote(
+            id: widget.note.id,
+            note: note,
+          );
     }
   }
 
   @override
   void initState() {
-    titleController = TextEditingController(text: widget.note?.title);
+    titleController = TextEditingController(text: widget.note.title);
     descriptionController =
-        TextEditingController(text: widget.note?.description);
+        TextEditingController(text: widget.note.description);
     titleController.addListener(updateNote);
     descriptionController.addListener(updateNote);
+    print(widget.note.id);
     super.initState();
   }
 
@@ -76,41 +72,40 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
           backgroundColor: Colors.transparent,
           actions: [
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
-              child: widget.note != null
-                  ? Row(
-                      children: [
-                        Icon(
-                          widget.note!.showDescription
-                              ? Icons.speaker_notes
-                              : Icons.speaker_notes_off,
-                        ),
-                        const SizedBox(width: 3),
-                        Checkbox(
-                          value: widget.note!.showDescription,
-                          onChanged: (bool? value) {
-                            setState(
-                              () {
-                                final xd =
-                                    widget.note!.showDescription = value!;
-                                context.read<NoteState>().updateNote(
-                                      index: widget.index!,
-                                      note: widget.note!.copyWith(
-                                        showDescription: xd,
-                                      ),
-                                    );
-                              },
-                            );
-                            print(widget.note);
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      widget.note.showDescription
+                          ? Icons.speaker_notes
+                          : Icons.speaker_notes_off,
+                    ),
+                    const SizedBox(width: 3),
+                    Checkbox(
+                      value: widget.note.showDescription,
+                      onChanged: (bool? value) {
+                        setState(
+                          () {
+                            final xd = widget.note.showDescription = value!;
+                            context.read<NoteState>().updateNote(
+                                  id: widget.note.id,
+                                  note: widget.note.copyWith(
+                                    title: titleController.text,
+                                    description: descriptionController.text,
+                                    dateTime: DateTime.now(),
+                                    showDescription: xd,
+                                  ),
+                                );
                           },
-                        ),
-                      ],
-                    )
-                  : null,
-            )
+                        );
+                        print(widget.note);
+                      },
+                    ),
+                  ],
+                ))
           ],
         ),
         body: Padding(
