@@ -9,11 +9,9 @@ class AddOrUpdateNoteView extends StatefulWidget {
   const AddOrUpdateNoteView({
     super.key,
     required this.note,
-    this.index,
   });
 
   final Note note;
-  final int? index;
 
   @override
   State<AddOrUpdateNoteView> createState() => _AddOrUpdateNoteViewState();
@@ -31,11 +29,10 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
     );
 
     // validation only
-
-    // if (titleController.text == widget.note.title &&
-    //     descriptionController.text == widget.note.description) {
-    //   return;
-    // }
+    if (titleController.text == widget.note.title &&
+        descriptionController.text == widget.note.description) {
+      return;
+    }
 
     if (titleController.text.isNotEmpty) {
       await context.read<NoteState>().updateNote(
@@ -143,14 +140,12 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
                 ),
               ),
               const Spacer(),
-              widget.note != null
-                  ? Text(
-                      'Last edit ${DateFormat.yMMMMd().add_jm().format(widget.note!.dateTime)}',
-                      style: const TextStyle(
-                        fontSize: 11,
-                      ),
-                    )
-                  : const SizedBox(),
+              Text(
+                'Last edit ${DateFormat.yMMMMd().add_jm().format(widget.note.dateTime)}',
+                style: const TextStyle(
+                  fontSize: 11,
+                ),
+              )
             ],
           ),
         ),

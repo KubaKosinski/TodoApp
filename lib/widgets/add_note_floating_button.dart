@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../models/note.dart';
 import '../res/colors/app_color.dart';
 import '../state/note_state.dart';
@@ -23,11 +22,13 @@ class AddNoteFloatingButton extends StatelessWidget {
               note: note,
               id: note.id,
             );
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => AddOrUpdateNoteView(note: note),
-          ),
-        );
+        if (context.mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddOrUpdateNoteView(note: note),
+            ),
+          );
+        }
       },
       backgroundColor: AppColor.primaryColor,
       shape: const CircleBorder(),

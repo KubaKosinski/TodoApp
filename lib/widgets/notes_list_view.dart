@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/state/note_state.dart';
 import 'package:provider/provider.dart';
-
 import '../models/note.dart';
 import 'note_tile.dart';
 
@@ -28,7 +27,6 @@ class NotesListView extends StatelessWidget {
               await context.read<NoteState>().removeNote(id: note.id),
           child: NoteTile(
             note: note,
-            index: index,
           ),
         );
       },

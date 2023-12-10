@@ -6,22 +6,21 @@ import '../models/note.dart';
 class NoteRepositoryImpl implements NoteRepository<Note> {
   final _box = Hive.box('notes');
   @override
-  Future<void> addNote({required Note entity}) async {
-    await _box.add(entity);
-  }
+  Future<void> addNote({required Note entity}) async => await _box.add(entity);
 
   @override
-  Future<void> removeNote({required String id}) async {
-    await _box.delete(id);
-  }
+  Future<void> removeNote({required String id}) async => await _box.delete(id);
 
   @override
-  Future<void> updateNote({required Note entity, required String id}) async {
-    await _box.put(id, entity);
-  }
+  Future<void> updateNote({
+    required Note entity,
+    required String id,
+  }) async =>
+      await _box.put(
+        id,
+        entity,
+      );
 
   @override
-  List<Note> getNotes() {
-    return _box.values.toList().cast<Note>();
-  }
+  List<Note> get getNotes => _box.values.toList().cast<Note>();
 }

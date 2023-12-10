@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/note.dart';
 import '../res/colors/app_color.dart';
-import '../state/note_state.dart';
 import '../views/add_or_update_note_view.dart';
 
 class NoteTile extends StatelessWidget {
   const NoteTile({
     super.key,
     required this.note,
-    required this.index,
   });
 
   final Note note;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +19,6 @@ class NoteTile extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => AddOrUpdateNoteView(
             note: note,
-            index: index,
           ),
         ),
       ),

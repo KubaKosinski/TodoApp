@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:my_app/repository/note_repository_impl.dart';
 
 import '../models/note.dart';
+import '../repository/note_repository.dart';
 
 class NoteState extends ChangeNotifier {
-  final NoteRepositoryImpl _noteRepository;
+  final NoteRepository _noteRepository;
   NoteState({
-    required NoteRepositoryImpl noteRepository,
+    required NoteRepository noteRepository,
   }) : _noteRepository = noteRepository;
 
-  List<Note> getNotes() => _noteRepository.getNotes();
+  List<Note> get getNotes => _noteRepository.getNotes as List<Note>;
 
   Future<void> addNote({required Note note}) async {
     await _noteRepository.addNote(entity: note);

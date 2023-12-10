@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_app/repository/note_repository_impl.dart';
 import 'package:my_app/res/colors/app_color.dart';
 import 'package:provider/provider.dart';
-
 import 'res/strings/app_strings.dart';
 import 'state/note_state.dart';
 import 'views/notes_view.dart';
@@ -37,9 +36,7 @@ class MyNotes extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: NotesView(
-          noteState: NoteState(noteRepository: NoteRepositoryImpl()),
-        ),
+        home: const NotesView(),
       ),
     );
   }
