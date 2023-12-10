@@ -4,7 +4,7 @@ import 'package:my_app/repository/note_repository_impl.dart';
 import 'package:my_app/res/colors/app_color.dart';
 import 'package:provider/provider.dart';
 import 'res/strings/app_strings.dart';
-import 'view_model/note_state.dart';
+import 'view_model/note_view_model.dart';
 import 'views/notes_view.dart';
 
 class MyNotes extends StatelessWidget {

@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:my_app/view_model/note_state.dart';
+import 'package:my_app/view_model/note_view_model.dart';
 import 'package:provider/provider.dart';
 import '../models/note.dart';
 import 'note_tile.dart';

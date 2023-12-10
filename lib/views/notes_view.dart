@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/view_model/note_state.dart';
+import 'package:my_app/view_model/note_view_model.dart';
 import 'package:my_app/widgets/tasks_list.dart';
 import 'package:provider/provider.dart';
 import '../models/note.dart';

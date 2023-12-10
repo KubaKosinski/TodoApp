@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:my_app/models/note.dart';
 import 'package:my_app/res/strings/app_strings.dart';
 import 'package:provider/provider.dart';
-import '../view_model/note_state.dart';
+import '../view_model/note_view_model.dart';
 
 class AddOrUpdateNoteView extends StatefulWidget {
   const AddOrUpdateNoteView({

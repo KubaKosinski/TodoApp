@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/note.dart';
 import '../res/colors/app_color.dart';
-import '../view_model/note_state.dart';
+import '../view_model/note_view_model.dart';
 import '../views/add_or_update_note_view.dart';
 
 class AddNoteFloatingButton extends StatelessWidget {
