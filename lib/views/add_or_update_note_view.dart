@@ -86,14 +86,15 @@ class _AddOrUpdateNoteViewState extends State<AddOrUpdateNoteView> {
                       onChanged: (bool? value) {
                         setState(
                           () {
-                            final xd = widget.note.showDescription = value!;
+                            final showDescription =
+                                widget.note.showDescription = value!;
                             context.read<NoteViewModel>().updateNote(
                                   id: widget.note.id,
                                   note: widget.note.copyWith(
                                     title: titleController.text,
                                     description: descriptionController.text,
                                     dateTime: DateTime.now(),
-                                    showDescription: xd,
+                                    showDescription: showDescription,
                                   ),
                                 );
                           },
