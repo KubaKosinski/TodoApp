@@ -9,6 +9,12 @@ void main() {
   late NoteViewModel sut;
   late NoteRepository mockNoteRepository;
 
+  final note = Note(
+    title: '1',
+    dateTime: DateTime.utc(1969),
+    id: '1000',
+  );
+
   setUp(() async {
     Hive.init('notes');
     Hive.registerAdapter(NoteAdapter());
@@ -22,18 +28,24 @@ void main() {
   });
 
   test('Manage note', () {
-    Hive.box('notes').clear();
-    final note = Note(
-      title: '1',
-      dateTime: DateTime.utc(1969),
-      id: '1000',
-    );
     sut.updateNote(note: note, id: note.id);
 
     final updatedNote = note.copyWith(title: '2');
 
-    sut.updateNote(note: updatedNote, id: note.id);
-    Hive.box('notes').clear();
+    sut.updateNote(
+      note: updatedNote,
+      id: note.id,
+    );
     expect(sut.getNotes.first, updatedNote);
   });
+
+  test(
+    'Delete note',
+    () {
+      sut.removeNote(
+        id: note.id,
+      );
+      expect(sut.getNotes, []);
+    },
+  );
 }
